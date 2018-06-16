@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.016f3cd91466b58763b21f62ecbca684.js"
+  "precache-manifest.9b6fcf2140a4329e97de4df88bf0c3bc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-interest-rate"});
