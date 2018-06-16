@@ -1,7 +1,33 @@
 <template>
   <div class="home">
+    <h2>贷款实时利率计算器</h2>
     <el-row :gutter="20">
-      <el-col :span="12">
+      <el-col :xs="24" :md="12">
+        <el-input type="number" v-model="borrow" placeholder="单位:元">
+            <template slot="prepend">贷款总额</template>
+        </el-input>
+        <el-input type="number" v-model="stages" placeholder="单位:月">
+            <template slot="prepend">分期数</template>
+        </el-input>
+        <el-input type="number" v-model="serviceCharge" placeholder="单位:元">
+            <template slot="prepend">每期手续费</template>
+        </el-input>
+        <table>
+          <tr>
+            <th>总利息</th>
+            <td>{{interestTotal}}</td>
+          </tr>
+          <tr>
+            <th>总利率(单利)</th>
+            <td>{{interestRateTotal | percent}}</td>
+          </tr>
+          <tr>
+            <th>月利率(单利)</th>
+            <td>{{interestRateMonthly | percent}}</td>
+          </tr>
+        </table>
+      </el-col>
+      <el-col :xs="24" :md="12">
         <el-table
               :data="tableData"
               stripe
@@ -9,7 +35,9 @@
               style="width: 100%">
               <el-table-column
                 prop="month"
-                label="月">
+                label="月"
+                width="50"
+                >
               </el-table-column>
               <el-table-column
                 prop="capitalMonthly"
@@ -41,25 +69,6 @@
               </el-table-column>
         </el-table>
       </el-col>
-      <el-col :span="12">
-        <el-input type="number" v-model="borrow" placeholder="贷款数(单位元)"/>
-        <el-input type="number" v-model="stages" placeholder="分期数"/>
-        <el-input type="number" v-model="serviceCharge" placeholder="每期手续费"/>
-      </el-col>
-        <table>
-          <tr>
-            <th>总利息</th>
-            <td>{{interestTotal}}</td>
-          </tr>
-          <tr>
-            <th>总利率(单利)</th>
-            <td>{{interestRateTotal | percent}}</td>
-          </tr>
-          <tr>
-            <th>月利率(单利)</th>
-            <td>{{interestRateMonthly | percent}}</td>
-          </tr>
-        </table>
     </el-row>
     
   </div>
@@ -70,7 +79,7 @@ export default {
   name: "home",
   data() {
     return {
-      borrow: 10000, //借款数
+      borrow: 100000, //借款数
       stages: 60, //分期数
       serviceCharge: 260
     };
@@ -118,8 +127,13 @@ export default {
       return (value * 100).toFixed(4) + "%";
     },
     baoliu(value) {
-      return value.toFixed(4);
+      return value.toFixed(2);
     }
   }
 };
 </script>
+<style lang="scss">
+.el-input .el-input-group__prepend {
+  width: 5em;
+}
+</style>
